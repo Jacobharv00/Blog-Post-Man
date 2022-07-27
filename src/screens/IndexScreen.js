@@ -31,6 +31,16 @@ const IndexScreen = ( { navigation } ) => {
   )
 }
 
+IndexScreen.navigationOptions = ( { navigation } ) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={ () => navigation.navigate( 'Create' ) } style={ styles.plusIcon }>
+        <Feather name="plus" size={ 30 } />
+      </TouchableOpacity>
+    ),
+  }
+}
+
 const styles = StyleSheet.create( {
   screenTitle: {
     padding: 10,
@@ -56,7 +66,11 @@ const styles = StyleSheet.create( {
     paddingHorizontal: 10,
     borderTopWidth: 1,
     borderColor: 'gray'
+  },
+  plusIcon: {
+    marginRight: 5
   }
 } )
 
 export default IndexScreen
+
