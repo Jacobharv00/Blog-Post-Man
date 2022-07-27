@@ -11,8 +11,9 @@ const ShowScreen = ( { navigation } ) => {
 
   return (
     <View>
-      <Text>{ blogPost.title }</Text>
-      <Text>{ blogPost.content }</Text>
+      <Text style={ styles.title }>Show Screen</Text>
+      <Text style={ styles.blogTitle }>{ blogPost.title }</Text>
+      <Text style={ styles.blogContent }>{ blogPost.content }</Text>
     </View>
   )
 }
@@ -20,7 +21,7 @@ const ShowScreen = ( { navigation } ) => {
 ShowScreen.navigationOptions = ( { navigation } ) => {
   return {
     headerRight: () => (
-      <TouchableOpacity onPress={ () => navigation.navigate( 'Edit' ) }>
+      <TouchableOpacity onPress={ () => navigation.navigate( 'Edit', { id: navigation.getParam( 'id' ) } ) }>
         <EvilIcons name="pencil" size={ 30 } style={ styles.pencilIcon } />
       </TouchableOpacity>
     ),
@@ -34,6 +35,25 @@ const styles = StyleSheet.create( {
     fontSize: 30,
     color: '#265664'
   },
+  title: {
+    textAlign: 'center',
+    fontSize: 30,
+    margin: 10,
+    marginBottom: 15,
+    fontWeight: 'bold'
+  },
+  blogTitle: {
+    fontSize: 22,
+    margin: 10,
+    marginBottom: 5,
+    fontWeight: 'bold'
+  },
+  blogContent: {
+    fontSize: 18,
+    margin: 10,
+    marginBottom: 5,
+  }
+
 } )
 
 export default ShowScreen
