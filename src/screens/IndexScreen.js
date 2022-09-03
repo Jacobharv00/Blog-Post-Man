@@ -9,11 +9,20 @@ const IndexScreen = ( { navigation } ) => {
 
   useEffect( () => {
     getBlogPosts()
+
+    // Fetch again when screen is revisted
+    const listener = navigation.addListener( 'didFocus', () => {
+      getBlogPosts()
+    } )
+    // cleanup function (can prevent memory leak)
+    return () => {
+      listener.remove()
+    }
   }, [] )
 
   return (
     <View>
-      <Text style={ styles.screenTitle }>Home</Text>
+      <Text style={ styles.screenTitle }>Blogs</Text>
       <FlatList
         data={ state }
         keyExtractor={ ( blogPost ) => blogPost.id }
