@@ -1,15 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
 import { Context } from '../context/BlogContext'
 
 const IndexScreen = ( { navigation } ) => {
-  const { state, deleteBlogPost } = useContext( Context )
+  const { state, deleteBlogPost, getBlogPosts } = useContext( Context )
+
+  useEffect( () => {
+    getBlogPosts()
+  }, [] )
 
   return (
     <View>
-      <Text style={ styles.screenTitle }>Index Screen</Text>
+      <Text style={ styles.screenTitle }>Home</Text>
       <FlatList
         data={ state }
         keyExtractor={ ( blogPost ) => blogPost.id }

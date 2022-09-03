@@ -1,9 +1,13 @@
 import React from 'react'
+
 import createDataContext from './createDataContext'
+import jsonServer from '../api/jsonServer'
 
 
 const blogReducer = ( state, action ) => {
   switch ( action.type ) {
+    case 'get_blogposts':
+      return action.payload
     case 'delete_blogpost':
       return state.filter( ( blogPost ) => blogPost.id !== action.payload )
     case 'add_blogpost':
@@ -12,6 +16,13 @@ const blogReducer = ( state, action ) => {
       return state.map( ( blogPost ) => blogPost.id === action.payload.id ? action.payload : blogPost )
     default:
       return state
+  }
+}
+
+const getBlogPosts = ( dispatch ) => {
+  return async () => {
+    const response = await jsonServer.get( '/blogposts' )
+    dispatch( { type: 'get_blogposts', payload: response.data } )
   }
 }
 
@@ -49,6 +60,7 @@ const deleteBlogPost = ( dispatch ) => {
 
 export const { Context, Provider } = createDataContext(
   blogReducer,
-  { addBlogPost, deleteBlogPost, editBlogPost },
-  [ { title: 'First Blog Post', content: 'This is the first blog post', id: 1 } ]
+  { addBlogPost, deleteBlogPost, editBlogPost, getBlogPosts },
+  // Empty array is initial state when app loads
+  []
 )
